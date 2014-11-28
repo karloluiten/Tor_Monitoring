@@ -1,55 +1,47 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
     <title>Tor monitoring by alienone</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="javascripts/respond.js"></script>
-    <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <!--[if lt IE 8]>
-    <link rel="stylesheet" href="stylesheets/ie.css">
-    <![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
   </head>
+
   <body>
-      <div id="header">
-        <nav>
-          <li class="fork"><a href="https://github.com/alienone/Tor_Monitoring">View On GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/alienone/Tor_Monitoring/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/alienone/Tor_Monitoring/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-        </nav>
-      </div><!-- end header -->
 
-    <div class="wrapper">
+    <header>
+      <div class="container">
+        <h1>Tor monitoring</h1>
+        <h2>Tor Router &amp; Exit Node Monitoring</h2>
 
-      <section>
-        <div id="title">
-          <h1>Tor monitoring</h1>
-          <p>Tor Router &amp; Exit Node Monitoring</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="https://github.com/alienone">alienone</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
-        </div>
+        <section id="downloads">
+          <a href="https://github.com/alienone/Tor_Monitoring/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/alienone/Tor_Monitoring/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/alienone/Tor_Monitoring" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
 
+    <div class="container">
+      <section id="main_content">
         <h3>
-<a name="tor-router--exit-node-monitoring---arcsight-use-case" class="anchor" href="#tor-router--exit-node-monitoring---arcsight-use-case"><span class="octicon octicon-link"></span></a>Tor Router &amp; Exit Node Monitoring - ArcSight Use Case</h3>
+<a id="tor-router--exit-node-monitoring---arcsight-use-case" class="anchor" href="#tor-router--exit-node-monitoring---arcsight-use-case" aria-hidden="true"><span class="octicon octicon-link"></span></a>Tor Router &amp; Exit Node Monitoring - ArcSight Use Case</h3>
 
 <h4>
-<a name="data-sources" class="anchor" href="#data-sources"><span class="octicon octicon-link"></span></a>Data Sources</h4>
+<a id="data-sources" class="anchor" href="#data-sources" aria-hidden="true"><span class="octicon octicon-link"></span></a>Data Sources</h4>
 
 <ul>
 <li><a href="http://128.31.0.34:9031/tor/status/all">http://128.31.0.34:9031/tor/status/all</a></li>
 <li><a href="http://exitlist.torproject.org/exit-addresses">http://exitlist.torproject.org/exit-addresses</a></li>
 <li><a href="http://exitlist.torproject.org/exit-addresses.new">http://exitlist.torproject.org/exit-addresses.new</a></li>
-</ul><h4>
-<a name="installation--python-environment-configuration" class="anchor" href="#installation--python-environment-configuration"><span class="octicon octicon-link"></span></a>Installation &amp; Python Environment Configuration</h4>
+</ul>
+
+<h4>
+<a id="installation--python-environment-configuration" class="anchor" href="#installation--python-environment-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation &amp; Python Environment Configuration</h4>
 
 <ul>
 <li>curl -kL <a href="http://xrl.us/pythonbrewinstall">http://xrl.us/pythonbrewinstall</a> | bash</li>
@@ -63,18 +55,22 @@
 <li>python tor_get_current_router_nodes.py</li>
 <li>ps -ef | grep tor_get_current_router_nodes.py # You should observe the script running as a daemon process</li>
 <li>Script is configured to run every 24hrs</li>
-</ul><h4>
-<a name="use-case-description" class="anchor" href="#use-case-description"><span class="octicon octicon-link"></span></a>Use Case Description</h4>
+</ul>
+
+<h4>
+<a id="use-case-description" class="anchor" href="#use-case-description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use Case Description</h4>
 
 <p>Harvest actively recorded Tor router and exit nodes. Tor anonymous routing services are often utilized by nefarious actors to conduct hacking operations against customers information systems infrastructure. Strategy is to daily update Active Lists within ArcSight SIEM in an effort to monitor and alert on any customer assets that may communicate with any known Tor router nodes. Additionally monitor and alert on any Tor Exit nodes that may communicate with the customer's information systems infrastructure.</p>
 
 <h4>
-<a name="collection--processing-methodology" class="anchor" href="#collection--processing-methodology"><span class="octicon octicon-link"></span></a>Collection &amp; Processing Methodology</h4>
+<a id="collection--processing-methodology" class="anchor" href="#collection--processing-methodology" aria-hidden="true"><span class="octicon octicon-link"></span></a>Collection &amp; Processing Methodology</h4>
 
 <ul>
 <li>Harvest Tor router and exit node data from data sources monitoring and updating on said registration of Tor assets.</li>
-</ul><h4>
-<a name="culled-attribute-to-arcsight-mappings" class="anchor" href="#culled-attribute-to-arcsight-mappings"><span class="octicon octicon-link"></span></a>Culled Attribute to ArcSight Mappings</h4>
+</ul>
+
+<h4>
+<a id="culled-attribute-to-arcsight-mappings" class="anchor" href="#culled-attribute-to-arcsight-mappings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Culled Attribute to ArcSight Mappings</h4>
 
 <p><strong>Python Object - ArcSight Schema Field - Description</strong>
 element - SourceAddress - None </p>
@@ -86,8 +82,10 @@ SourceAddress - Tor Router/Exit Node - None</p>
 <li>DeviceProduct =&gt; Tor Router Node/Tor Exit Node - None</li>
 <li>DeviceVendor =&gt; Tor Exit Node/Tor Router Node - None</li>
 <li>DeviceEventClassID =&gt; Exit Node/Router Node - None</li>
-</ul><h4>
-<a name="arcsight-content-development" class="anchor" href="#arcsight-content-development"><span class="octicon octicon-link"></span></a>ArcSight Content Development</h4>
+</ul>
+
+<h4>
+<a id="arcsight-content-development" class="anchor" href="#arcsight-content-development" aria-hidden="true"><span class="octicon octicon-link"></span></a>ArcSight Content Development</h4>
 
 <ul>
 <li>Create Real Time Rule to populate Active List </li>
@@ -95,21 +93,24 @@ SourceAddress - Tor Router/Exit Node - None</p>
 <li>String assignment should be DeviceEventClassID</li>
 <li>Create Real Time Rule to monitor outbound communications of customer assets with Tor Router Nodes </li>
 <li>Create Real Time Rule to monitor inbound communications of customer assets SourceAddress</li>
-</ul><h4>
-<a name="long-term-deployment" class="anchor" href="#long-term-deployment"><span class="octicon octicon-link"></span></a>Long Term Deployment</h4>
+</ul>
+
+<h4>
+<a id="long-term-deployment" class="anchor" href="#long-term-deployment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Long Term Deployment</h4>
 
 <ul>
 <li>Implementation runs as a daemon process on system</li>
-</ul><h4>
-<a name="todo" class="anchor" href="#todo"><span class="octicon octicon-link"></span></a>TODO</h4>
+</ul>
+
+<h4>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h4>
 
 <ul>
 <li>None at this point in time</li>
 </ul>
       </section>
-
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
     
   </body>
 </html>
