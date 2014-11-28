@@ -77,7 +77,7 @@ def main():
 
 
 class MyDaemon(Daemon):
-    """Define main() to be daemonized"""
+    """Define main() to be daemon"""
     def run(self):
         while True:
             main()
