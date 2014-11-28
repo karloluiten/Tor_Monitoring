@@ -20,25 +20,32 @@ def get_tor_nodes(urls_list):
     :param urls_list: List of url strings
     :return: CEF formatted event output TCP syslog
     """
-    sock = syslog_tcp_open('127.0.0.1', port=1026)
+    product_list = []
     for url in urls_list:
         get_request_url = requests.get(url)
         if get_request_url.status_code == 200:
             if 'exit' in url:
                 data = get_request_url.text
                 tor_exit_list = data.encode('utf-8').split('\n')
-                for element in tor_exit_list:
-                    cef_exit_node = 'CEF:0|Tor Exit Node|Tor Exit|1.0|Exit Node|Tor Exit Node|1| src=%s' % element
-                    syslog_tcp(sock, "%s" % cef_exit_node, priority=0, facility=7)
+                product_list.append(tor_exit_list)
             if 'all' in url:
                 data = get_request_url.text
                 tor_router_list = data.encode('utf-8').split('\n')
-                for element in tor_router_list:
-                    cef_router_node = 'CEF:0|Tor Router Node|Tor Router|1.0|Router Node|' \
-                                      'Tor Router Node|1| dst=%s' % element
-                    syslog_tcp(sock, "%s" % cef_router_node, priority=0, facility=7)
+                product_list.append(tor_router_list)
+    return product_list
+
+
+def syslog_cef(product_list_obj):
+    sock = syslog_tcp_open('127.0.0.1', port=1026)
+    for element in product_list_obj[0]:
+        cef_exit_node = 'CEF:0|Tor Exit Node|Tor Exit|1.0|Exit Node|Tor Exit Node|1| src=%s' % element
+        syslog_tcp(sock, "%s" % cef_exit_node, priority=0, facility=7)
+    for element in product_list_obj[1]:
+        cef_router_node = 'CEF:0|Tor Router Node|Tor Router|1.0|Router Node|Tor Router Node|1| dst=%s' % element
+        syslog_tcp(sock, "%s" % cef_router_node, priority=0, facility=7)
     time.sleep(0.01)
     syslog_tcp_close(sock)
+
 
 
 def main():
@@ -50,7 +57,7 @@ def main():
     urls_list = ["http://torstatus.blutmagie.de/ip_list_exit.php",
                  "http://torstatus.blutmagie.de/ip_list_all.php"]
     while True:
-        get_tor_nodes(urls_list)
+        syslog_cef(get_tor_nodes(urls_list))
         time.sleep(86400 - ((time.time() - start_time) % 86400))
 
 
