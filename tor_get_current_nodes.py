@@ -47,7 +47,6 @@ def syslog_cef(product_list_obj):
     syslog_tcp_close(sock)
 
 
-
 def main():
     """
     Execute get_tor_nodes function every 24 hours
