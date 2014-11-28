@@ -15,6 +15,11 @@ from syslog.syslog_tcp import *
 
 
 def get_tor_nodes(urls_list):
+    """
+    Get get current lists of tor exit and router nodes
+    :param urls_list: List of url strings
+    :return: CEF formatted event output TCP syslog
+    """
     sock = syslog_tcp_open('127.0.0.1', port=1026)
     for url in urls_list:
         get_request_url = requests.get(url)
@@ -48,7 +53,7 @@ def main():
 
 class MyDaemon(Daemon):
     """
-    Program instance run as daemon
+    Main instance run as daemon
     """
     def run(self):
         while True:
