@@ -43,12 +43,15 @@ def get_tor_nodes(urls_list):
 
 def main():
     """
-    Main program execution
-    :return:
+    Execute get_tor_nodes function every 24 hours
+    :return: None
     """
+    start_time = time.time()
     urls_list = ["http://torstatus.blutmagie.de/ip_list_exit.php",
                  "http://torstatus.blutmagie.de/ip_list_all.php"]
-    get_tor_nodes(urls_list)
+    while True:
+        get_tor_nodes(urls_list)
+        time.sleep(86400 - ((time.time() - start_time) % 86400))
 
 
 class MyDaemon(Daemon):
