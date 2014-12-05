@@ -19,7 +19,7 @@ Tor Exit nodes that may communicate with the customer's information systems infr
 element - SourceAddress - None 
 
 **ArcSight CEF Mappings - Assignment - Description if Any**
-SourceAddress - Tor Router/Exit Node - None
+- SourceAddress - Tor Router/Exit Node - None
 - DeviceProduct => Tor Router Node/Tor Exit Node - None
 - DeviceVendor => Tor Exit Node/Tor Router Node - None
 - DeviceEventClassID => Exit Node/Router Node - None
